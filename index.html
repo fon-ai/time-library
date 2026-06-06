@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time Library｜升中任務篇</title>
+  <meta name="description" content="原創升中適應漫畫，用故事陪小六至中一學生理解新校園、新科目、新功課和成長挑戰。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">✦</span><span>Time Library｜升中任務篇</span></a>
+    <div class="nav-links">
+      <a class="active" href="index.html">漫畫目錄</a>
+      <a href="tools.html">升中工具箱</a>
+      <a href="characters.html">角色介紹</a>
+      <a href="about.html">關於本網站</a>
+    </div>
+  </nav>
+</header>
+<main class="container">
+  <section class="hero">
+    <div>
+      <p class="subtitle">升中第一個月任務開始</p>
+      <h1>Time Library</h1>
+      <p>用故事陪小六至中一學生理解新校園、新科目、新功課、時間管理、社交情緒和成長挑戰。</p>
+      <div class="btn-row"><a class="btn" href="#episodes">開始閱讀</a><a class="btn secondary" href="tools.html">查看工具箱</a></div>
+    </div>
+    <div class="hero-art" aria-label="Time Library banner placeholder">
+      <div class="mission-card"><b>Today’s Mission</b><br>Learn · Adapt · Grow · Transition<br><small>把大問題拆成小任務。</small></div>
+    </div>
+  </section>
+
+  <section id="episodes">
+    <div class="section-title">
+      <div><h2>漫畫目錄</h2><p>Published 集數會顯示在這裡。</p></div>
+    </div>
+    <div class="controls">
+      <input id="searchInput" class="search" type="search" placeholder="搜尋：EP、標題、主題、tag...">
+      <div id="filters" class="filters"></div>
+    </div>
+    <div id="episodeGrid" class="grid"></div>
+  </section>
+</main>
+<footer class="footer"><div class="footer-inner"><strong>Time Library｜升中任務篇</strong><small>本網站為原創升中適應漫畫及學習輔助內容，並非學校或任何官方教材。內容以故事和角色經歷協助學生理解升中生活，如有錯漏或建議，歡迎私訊回報。</small></div></footer>
+<script src="episodes-data.js?v=1"></script>
+<script src="js/main.js?v=1"></script>
+<script>
+const grid = document.getElementById('episodeGrid');
+const filters = document.getElementById('filters');
+const searchInput = document.getElementById('searchInput');
+let activeFilter = '全部';
+const filterNames = ['全部','升中適應','時間管理','學科學習','社交情緒','考試測驗','工具書籤'];
+function renderFilters(){
+  filters.innerHTML = filterNames.map(f => `<button class="filter-btn ${f===activeFilter?'active':''}" data-filter="${f}">${f}</button>`).join('');
+}
+function matches(ep, q){
+  const text = [ep.id, ep.ep, ep.title, ep.topic, ep.season, ep.seasonTitle, ...(ep.tags||[])].join(' ').toLowerCase();
+  return text.includes(q.toLowerCase());
+}
+function render(){
+  const q = searchInput.value.trim();
+  const list = TL.published().filter(ep => (activeFilter==='全部' || (ep.tags||[]).includes(activeFilter) || ep.type==='tool' && activeFilter==='工具書籤')).filter(ep => !q || matches(ep,q));
+  grid.innerHTML = list.map(ep => `
+    <a class="card" href="reader.html?ep=${encodeURIComponent(ep.id)}">
+      <span class="badge">${ep.ep}</span>
+      <h3>${ep.title}</h3>
+      <div class="meta">${ep.seasonTitle}｜${ep.topic}</div>
+      <div class="tags">${(ep.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <span class="btn secondary">開始閱讀</span>
+    </a>`).join('') || '<div class="content-card"><p>暫時沒有符合條件的內容。</p></div>';
+}
+filters.addEventListener('click', e => { if(e.target.matches('.filter-btn')){ activeFilter=e.target.dataset.filter; renderFilters(); render(); }});
+searchInput.addEventListener('input', render);
+renderFilters(); render();
+</script>
+</body>
+</html>

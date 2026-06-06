@@ -1,0 +1,9 @@
+Time Library｜升中任務篇 上線前檢查
+
+1. 每集圖片是否放在 comics/epXX/
+2. 圖片是否命名 01.png, 02.png, 03.png
+3. episodes-data.js 的 pageCount 是否等於實際圖片數量
+4. status 是否要 published
+5. reader.html?ep=ep01 是否可正常開啟
+6. 手機版是否可閱讀
+7. GitHub Pages 更新後可用 ?v=2 測試新版
