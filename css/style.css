@@ -20,7 +20,7 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}.site-hea
 @media(max-width:480px){.character-grid{grid-template-columns:1fr}.hero h1{font-size:42px}.container{padding:20px 14px}.reader-shell{padding:16px 10px}.card{padding:15px}}
 
 
-/* Homepage image banner update */
+/* Homepage image banner update v3: clean desktop/mobile banner, no blurred inset */
 .hero-banner{
   position:relative;
   border-radius:30px;
@@ -57,16 +57,18 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}.site-hea
   .hero-banner{
     border-radius:24px;
     margin:8px 0 26px;
+    background:#fff;
   }
   .hero-banner img{
     aspect-ratio:4/5;
     object-fit:cover;
-    object-position:center;
+    object-position:center center;
   }
   .hero-banner-actions{
-    left:16px;
-    right:16px;
-    bottom:16px;
+    position:static;
+    padding:12px;
+    background:linear-gradient(180deg,#fffaf0,#ffffff);
+    border-top:1px solid var(--line);
   }
   .hero-banner-actions .btn{
     flex:1 1 130px;
@@ -77,10 +79,5 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}.site-hea
 @media(max-width:480px){
   .hero-banner{
     border-radius:20px;
-  }
-  .hero-banner-actions{
-    position:static;
-    padding:12px;
-    background:linear-gradient(180deg,#fffaf0,#ffffff);
   }
 }
