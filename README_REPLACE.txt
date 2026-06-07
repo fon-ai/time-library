@@ -1,10 +1,19 @@
-更新內容：
-1. 修正手機首頁 hero：不再使用「模糊背景 + 內嵌圖片」效果。
-2. 手機 banner 改為乾淨 4:5 圖片：images/banner-mobile.png。
-3. index.html 已加入 ?v=3，減少 GitHub Pages / Safari cache 問題。
-4. css/style.css 已更新手機版 hero 排版，按鈕會放在圖片下方。
+Time Library mobile hero no-crop fix v4
 
-使用方法：
-把本 ZIP 入面的 index.html、css/style.css、images/banner-desktop.png、images/banner-mobile.png 覆蓋到你的 time-library repo 相同位置。
-然後 GitHub Desktop：Commit to main → Push origin。
-測試網址加 ?v=3。
+請把這個 ZIP 內的檔案覆蓋到 repo 相同位置：
+
+index.html
+css/style.css
+images/banner-desktop.png
+images/banner-mobile.png
+
+這版修正：
+- 手機版不再用 object-fit: cover 裁走左右兩邊。
+- banner-mobile.png 改為完整構圖版。
+- index.html / CSS cache 版本更新為 v=4。
+
+GitHub Desktop commit summary 建議：
+Fix mobile hero no crop
+
+測試網址：
+https://你的帳號.github.io/time-library/?v=4
