@@ -20,13 +20,14 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}.site-hea
 @media(max-width:480px){.character-grid{grid-template-columns:1fr}.hero h1{font-size:42px}.container{padding:20px 14px}.reader-shell{padding:16px 10px}.card{padding:15px}}
 
 
-/* Homepage image banner update v4: mobile no-crop full image */
+
+/* Homepage image banner update v5: mobile compact no blank gap */
 .hero-banner{
   position:relative;
   border-radius:30px;
   overflow:hidden;
   border:1px solid var(--line);
-  background:#fff;
+  background:#fffaf0;
   box-shadow:var(--shadow);
   margin-bottom:28px;
 }
@@ -37,7 +38,7 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}.site-hea
 }
 .hero-banner img{
   height:auto;
-  object-fit:cover;
+  object-fit:contain;
 }
 .hero-banner-actions{
   position:absolute;
@@ -57,15 +58,14 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}.site-hea
   .hero-banner{
     border-radius:24px;
     margin:8px 0 26px;
-    background:#fff;
+    background:#fffaf0;
   }
   .hero-banner img{
     width:100%;
     height:auto;
-    aspect-ratio:auto;
+    max-height:none;
     object-fit:contain;
     object-position:center center;
-    background:#fff8ea;
   }
   .hero-banner-actions{
     position:static;
