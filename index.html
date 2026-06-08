@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Time Library｜升中任務篇</title>
   <meta name="description" content="原創升中適應漫畫，用故事陪小六至中一學生理解新校園、新科目、新功課和成長挑戰。">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
 <header class="site-header">
@@ -22,8 +22,8 @@
 <main class="container">
   <section class="hero-banner" aria-label="Time Library｜升中任務篇 homepage banner">
     <picture>
-      <source media="(max-width: 768px)" srcset="images/banner-mobile.png?v=5">
-      <img src="images/banner-desktop.png?v=5" alt="Time Library｜升中任務篇｜用故事陪你適應中學生活">
+      <source media="(max-width: 768px)" srcset="images/banner-mobile.png?v=6">
+      <img src="images/banner-desktop.png?v=6" alt="Time Library｜升中任務篇｜用故事陪你適應中學生活">
     </picture>
     <div class="hero-banner-actions">
       <a class="btn" href="#episodes">開始閱讀</a>
@@ -36,15 +36,15 @@
       <div><h2>漫畫目錄</h2><p>Published 集數會顯示在這裡。</p></div>
     </div>
     <div class="controls">
-      <input id="searchInput" class="search" type="search" placeholder="搜尋：EP、標題、主題、tag...">
+      <input id="searchInput" class="search" type="search" placeholder="搜尋：EP、標題、主題...">
       <div id="filters" class="filters"></div>
     </div>
     <div id="episodeGrid" class="grid"></div>
   </section>
 </main>
 <footer class="footer"><div class="footer-inner"><strong>Time Library｜升中任務篇</strong><small>本網站為原創升中適應漫畫及學習輔助內容，並非學校或任何官方教材。內容以故事和角色經歷協助學生理解升中生活，如有錯漏或建議，歡迎私訊回報。</small></div></footer>
-<script src="episodes-data.js?v=1"></script>
-<script src="js/main.js?v=1"></script>
+<script src="episodes-data.js?v=6"></script>
+<script src="js/main.js?v=6"></script>
 <script>
 const grid = document.getElementById('episodeGrid');
 const filters = document.getElementById('filters');
@@ -66,7 +66,6 @@ function render(){
       <span class="badge">${ep.ep}</span>
       <h3>${ep.title}</h3>
       <div class="meta">${ep.seasonTitle}｜${ep.topic}</div>
-      <div class="tags">${(ep.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
       <span class="btn secondary">開始閱讀</span>
     </a>`).join('') || '<div class="content-card"><p>暫時沒有符合條件的內容。</p></div>';
 }

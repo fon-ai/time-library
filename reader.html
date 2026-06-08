@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reader｜Time Library｜升中任務篇</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
 <header class="site-header">
@@ -20,14 +20,20 @@
   <div id="pageList" class="page-list"></div>
 </main>
 <footer class="footer"><div class="footer-inner"><strong>Time Library｜升中任務篇</strong><small>本網站為原創升中適應漫畫及學習輔助內容，並非學校或任何官方教材。</small></div></footer>
-<script src="episodes-data.js?v=1"></script>
-<script src="js/main.js?v=1"></script>
+<script src="episodes-data.js?v=6"></script>
+<script src="js/main.js?v=6"></script>
 <script>
 const params = new URLSearchParams(location.search);
 const id = params.get('ep') || 'ep01';
 const ep = TL.findEpisode(id);
 const topBox = document.getElementById('readerTop');
 const pageList = document.getElementById('pageList');
+
+const publishedList = TL.published();
+const currentIndex = ep ? publishedList.findIndex(item => item.id === ep.id) : -1;
+const prevEp = currentIndex > 0 ? publishedList[currentIndex - 1] : null;
+const nextEp = currentIndex >= 0 && currentIndex < publishedList.length - 1 ? publishedList[currentIndex + 1] : null;
+
 function imagePath(ep, n){ return `${ep.folder}${ep.filePrefix || ''}${TL.pad(n)}.${ep.fileExt || 'png'}`; }
 function fallbackPath(ep, n, step){
   const ext = ep.fileExt || 'png';
@@ -40,16 +46,24 @@ function fallbackPath(ep, n, step){
   ];
   return candidates[step] || '';
 }
+function episodeNav(){
+  return `<nav class="episode-nav" aria-label="集數導覽">
+    ${prevEp ? `<a class="btn secondary" href="reader.html?ep=${encodeURIComponent(prevEp.id)}">← 上一集</a>` : `<span class="btn secondary disabled" aria-disabled="true">← 上一集</span>`}
+    <a class="btn secondary" href="index.html#episodes">返回目錄</a>
+    ${nextEp ? `<a class="btn" href="reader.html?ep=${encodeURIComponent(nextEp.id)}">下一集 →</a>` : `<span class="btn disabled" aria-disabled="true">下一集 →</span>`}
+  </nav>`;
+}
+
 if(!ep){
-  topBox.innerHTML = `<div class="reader-title"><h1>找不到這一集</h1><p>請返回漫畫目錄重新選擇。</p></div><a class="btn secondary" href="index.html">返回目錄</a>`;
+  topBox.innerHTML = `<div class="reader-title"><h1>找不到這一集</h1><p>請返回漫畫目錄重新選擇。</p></div><a class="btn secondary" href="index.html#episodes">返回目錄</a>`;
 } else {
   document.title = `${ep.ep}｜${ep.title}｜Time Library`;
-  topBox.innerHTML = `<div class="reader-title"><h1>${ep.ep}｜${ep.title}</h1><p>${ep.topic}｜共 ${ep.pageCount} 頁</p></div><div class="reader-controls"><a class="btn secondary" href="index.html">返回目錄</a><button class="btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">回到頁頂</button></div>`;
+  topBox.innerHTML = `<div class="reader-title"><span class="badge">${ep.ep}</span><h1>${ep.title}</h1><p>${ep.seasonTitle || ''}｜${ep.topic}｜共 ${ep.pageCount} 頁</p></div>${episodeNav()}`;
   pageList.innerHTML = Array.from({length: ep.pageCount}, (_,i)=>i+1).map(n => `
     <article class="comic-page" id="p${n}">
+      <div class="page-caption top-caption">${ep.ep}｜P${TL.pad(n)}</div>
       <img src="${imagePath(ep,n)}" alt="${ep.ep} page ${n}" loading="lazy" data-step="0" data-n="${n}">
-      <div class="page-caption">${ep.ep}｜P${TL.pad(n)}</div>
-    </article>`).join('');
+    </article>`).join('') + `<div class="reader-bottom-nav">${episodeNav()}<button class="btn secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">回到頁頂 ↑</button></div>`;
   pageList.querySelectorAll('img').forEach(img => {
     img.addEventListener('error', () => {
       const n = Number(img.dataset.n);
